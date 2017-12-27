@@ -4,79 +4,55 @@
  <title>Browser Session Test</title>
  <script>
 
- function EndBrowserSession(){
-	 document.execCommand("ClearAuthenticationCache", false);
- }
-  function setCookie(name, value, expires, path) {
-	var s = name + "=" + escape(value) +
-   ((expires == null) ? "" : "; expires=" + expires);
-   ((path == null) ? "" : "; path=" + path);
-   document.cookie = s;
-  }
+   function checkColor(){
+   	var sColor = document.cookie;
 
-  function checkColor(){
-	var sColor = document.cookie;
+   	if (window.sessionStorage) {
+   		document.getElementById("divSessStore").innerHTML = "<a href='http://msdn.microsoft.com/en-us/library/cc197020(VS.85).aspx'>sessionStorage</a> says color is: " + sessionStorage.sessionColor;
+   	}
+   	else {
+   		document.getElementById("divSessStore").innerHTML = "This browser does not support <a href='http://msdn.microsoft.com/en-us/library/cc197020(VS.85).aspx'>sessionStorage</a>.";
+   	}
 
-	if (window.sessionStorage) {
-		document.getElementById("divSessStore").innerHTML = "<a href='http://msdn.microsoft.com/en-us/library/cc197020(VS.85).aspx'>sessionStorage</a> says color is: " + sessionStorage.sessionColor;
-	}
-	else {
-		document.getElementById("divSessStore").innerHTML = "This browser does not support <a href='http://msdn.microsoft.com/en-us/library/cc197020(VS.85).aspx'>sessionStorage</a>.";
-	}
-
-	document.getElementById("divTime").innerHTML = "Current time: " + new Date();
+   	document.getElementById("divTime").innerHTML = "Current time: " + new Date();
 
 
-	if (window.localStorage) {
-		document.getElementById("divLocalStore").innerHTML = "<a href='http://msdn.microsoft.com/en-us/library/cc848902(VS.85).aspx'>localStorage</a> says color is: " + localStorage.sessionColor;
-	}
-	else {
-		document.getElementById("divLocalStore").innerHTML = "This browser does not support <a href='http://msdn.microsoft.com/en-us/library/cc848902(VS.85).aspx'>localStorage</a>.";
-	}
+   	if (window.localStorage) {
+   		document.getElementById("divLocalStore").innerHTML = "<a href='http://msdn.microsoft.com/en-us/library/cc848902(VS.85).aspx'>localStorage</a> says color is: " + localStorage.sessionColor;
+   	}
+   	else {
+   		document.getElementById("divLocalStore").innerHTML = "This browser does not support <a href='http://msdn.microsoft.com/en-us/library/cc848902(VS.85).aspx'>localStorage</a>.";
+   	}
 
+   	if (window.sessionStorage.sessionColor){
+   		document.body.style.backgroundColor = window.sessionStorage.sessionColor;
+     } else {
+       document.body.style.backgroundColor = "white";
+     }
+   }
 
-	var i = sColor.indexOf('sessionColor=') + 13;
-	if (i > 12){
-		sColor = sColor.substr(i);
-		i = sColor.indexOf(';');
-		if (i > -1){
-			sColor = sColor.substr(0, i);
-		}
-		document.title = 'Browser Session Test: ' + sColor;
-		document.body.style.backgroundColor = sColor;
-  	}
-  	else
-  	{
-  		document.title = 'Browser Session Test: not-set';
-		document.body.style.backgroundColor = 'white';
-
-  	}
-  }
-
-  function changeColor(sColor){
-  	if (sColor == ""){
-  	//alert("Changing back to no color");
-  		if (window.sessionStorage) {
-  			window.sessionStorage.sessionColor = "none";
-  		}
-  		if (window.localStorage) {
-  			window.localStorage.sessionColor = "none";
-  		}
-		setCookie('sessionColor', sColor, '-1', '/');
-		document.body.style.backgroundColor = 'white';
-  	}
-  	else
-  	{
-  		if (window.sessionStorage) {
-  			window.sessionStorage.sessionColor = sColor;
-  		}
-  		if (window.localStorage) {
-  			window.localStorage.sessionColor = sColor;
-  		}
-		setCookie('sessionColor', sColor, null, '/');
-		document.body.style.backgroundColor = sColor;
-	}
-  }
+   function changeColor(sColor){
+   	if (sColor == ""){
+   	//alert("Changing back to no color");
+   		if (window.sessionStorage) {
+   			window.sessionStorage.sessionColor = "none";
+   		}
+   		if (window.localStorage) {
+   			window.localStorage.sessionColor = "none";
+   		}
+ 		document.body.style.backgroundColor = 'white';
+   	}
+   	else
+   	{
+   		if (window.sessionStorage) {
+   			window.sessionStorage.sessionColor = sColor;
+   		}
+   		if (window.localStorage) {
+   			window.localStorage.sessionColor = sColor;
+   		}
+ 		document.body.style.backgroundColor = sColor;
+ 	}
+   }
 </script>
 
 </head>
@@ -97,16 +73,9 @@
 	<option value="orange">Orange</option>
 	</select>
 
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>Note: Selecting the &quot;no color&quot; option deletes the color-selection cookie
-	(by setting an expired persistent cookie).&nbsp; This deletion acts across
-	all processes.</p>
 
 	<div id="divSessStore"></div>
 	<div id="divLocalStore"></div>
 	<div id="divTime"></div>
-
-	<button onclick="EndBrowserSession()">EndBrowserSession</button>
 	</body>
 </html>
