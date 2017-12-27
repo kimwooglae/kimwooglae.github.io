@@ -3,6 +3,10 @@
 <head>
  <title>Browser Session Test</title>
  <script>
+
+ function EndBrowserSession(){
+	 document.execCommand("ClearAuthenticationCache", false);
+ }
   function setCookie(name, value, expires, path) {
 	var s = name + "=" + escape(value) +
    ((expires == null) ? "" : "; expires=" + expires);
@@ -51,13 +55,14 @@
 
   function changeColor(sColor){
   	if (sColor == ""){
+  	//alert("Changing back to no color");
   		if (window.sessionStorage) {
   			window.sessionStorage.sessionColor = "none";
   		}
   		if (window.localStorage) {
   			window.localStorage.sessionColor = "none";
   		}
-		setCookie('sessionColor', sColor, '-1', '/test/sessions/');
+		setCookie('sessionColor', sColor, '-1', '/');
 		document.body.style.backgroundColor = 'white';
   	}
   	else
@@ -72,8 +77,6 @@
 		document.body.style.backgroundColor = sColor;
 	}
   }
-
-  var windowObjectReference = window.open("popup.html", "popup_sample", "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
 </script>
 
 </head>
@@ -81,8 +84,8 @@
 
 	<!-- Note, must hook onkeyup in addition to onchange because non-IE browsers do not fire onchange events
 	as a result of keyboard input until the user hits enter.  https://bugzilla.mozilla.org/show_bug.cgi?id=126379 -->
-	This is a test page for some
-	<a href="http://blogs.msdn.com/b/ieinternals/archive/2009/09/16/bugs-in-ie8-support-for-html5-postmessage-sessionstorage-and-localstorage.aspx">HTML5 Implementation bugs</a>. Select a color for windows running in this session:<br>
+
+	Select a color for windows running in this session:<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<select id="selColor" onkeyup="changeColor(this.value);" onchange="changeColor(this.value);" style="width: 195px">
 	<option value=""></option>
@@ -104,7 +107,6 @@
 	<div id="divLocalStore"></div>
 	<div id="divTime"></div>
 
-	<iframe src="iframe.html" width="400" height="300"></iframe>
-		<iframe src="iframe.html" width="400" height="300"></iframe>
+	<button onclick="EndBrowserSession()">EndBrowserSession</button>
 	</body>
 </html>
