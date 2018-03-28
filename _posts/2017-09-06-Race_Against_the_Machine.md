@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '[BOOK] 좋은 분석, 실망스러운 결론'
+title: '[BOOK-0001] 좋은 분석, 실망스러운 결론'
 author: kimwooglae
 date: 2017-09-06 00:46
 tags: [서평]
