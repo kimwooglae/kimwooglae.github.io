@@ -10,6 +10,7 @@
 var txt = "";
 txt += "<p>Total width/height: " + screen.width + "*" + screen.height + "</p>";
 txt += "<p>Available width/height: " + screen.availWidth + "*" + screen.availHeight + "</p>";
+txt += "<p>Physical Pixel width/height: " + (screen.width*window.devicePixelRatio) + "*" + (screen.height*window.devicePixelRatio) + "</p>";
 txt += "<p>Color depth: " + screen.colorDepth + "</p>";
 txt += "<p>Color resolution: " + screen.pixelDepth + "</p>";
 txt += "<p>Device Pixel Ratio: " + window.devicePixelRatio + "</p>";
