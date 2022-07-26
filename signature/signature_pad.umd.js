@@ -16,7 +16,7 @@
       }
       this.x = +x;
       this.y = +y;
-      this.pressure = pressure || 0;
+      this.pressure = pressure || 0.5;
       this.time = time || Date.now();
     }
     distanceTo(start) {
@@ -381,12 +381,7 @@
       );
       const x = event.clientX;
       const y = event.clientY;
-      const pressure =
-        event.pressure !== undefined
-          ? event.pressure
-          : event.force !== undefined
-          ? event.force
-          : 0;
+      const pressure = event.pressure !== undefined ? event.pressure : 0.5;
       const point = this._createPoint(x, y, pressure);
       const lastPointGroup = this._data[this._data.length - 1];
       const lastPoints = lastPointGroup.points;
