@@ -42,8 +42,6 @@
         };
 
         w.onerror = (message, url, line, column) => {
-          // the line needs to correspond with the editor panel
-          // unfortunately this number needs to be altered every time this view is changed
           line = line - 70;
           if (line < 0) {
             pushToConsole(message, "error");

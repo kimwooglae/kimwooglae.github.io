@@ -499,7 +499,6 @@
           this.velocityFilterWeight * endPoint.velocityFrom(startPoint) +
           (1 - this.velocityFilterWeight) * this._lastVelocity;
         const newWidth = this._strokeWidth(velocity);
-        // const newWidth = this._strokeWidth(1);
         const widths = {
           end: newWidth,
           start: this._lastWidth,
