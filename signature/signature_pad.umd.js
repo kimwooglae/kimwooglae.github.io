@@ -504,9 +504,13 @@
           start: this._lastWidth,
         };
         console.log("velocity", velocity, "newWidth", newWidth);
+        this._lastVelocity = velocity;
         this._lastWidth = newWidth;
         return widths;
       }
+    }
+    _strokeWidthByPressure(pressure) {
+      return Math.max(this.maxWidth * pressure, this.minWidth);
     }
     _strokeWidth(velocity) {
       return Math.max(this.maxWidth / (velocity + 1), this.minWidth);
