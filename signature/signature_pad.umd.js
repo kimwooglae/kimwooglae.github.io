@@ -252,6 +252,8 @@
         }
       };
       this.velocityFilterWeight = options.velocityFilterWeight || 0.7;
+      this.usePressure = options.usePressure || false;
+      console.log("usePressure", this.usePressure);
       this.minWidth = options.minWidth || 0.5;
       this.maxWidth = options.maxWidth || 2.5;
       this.throttle = "throttle" in options ? options.throttle : 16;
@@ -385,7 +387,6 @@
           : event.force !== undefined
           ? event.force
           : 0;
-      console.log("pressure", pressure);
       const point = this._createPoint(x, y, pressure);
       const lastPointGroup = this._data[this._data.length - 1];
       const lastPoints = lastPointGroup.points;
@@ -472,7 +473,9 @@
         if (_lastPoints.length === 3) {
           _lastPoints.unshift(_lastPoints[0]);
         }
-        const widths = this._calculateCurveWidths(point.pressure);
+        const widths = this.usePressure
+          ? this._calculateCurveWidths(point.pressure)
+          : this._calculateCurveWidths(_lastPoints[1], _lastPoints[2]);
         const curve = Bezier.fromPoints(_lastPoints, widths);
         _lastPoints.shift();
         return curve;
