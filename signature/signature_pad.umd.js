@@ -473,9 +473,10 @@
         if (_lastPoints.length === 3) {
           _lastPoints.unshift(_lastPoints[0]);
         }
-        const widths = this.usePressure
-          ? this._calculateCurveWidths(point.pressure)
-          : this._calculateCurveWidths(_lastPoints[1], _lastPoints[2]);
+        const widths = this._calculateCurveWidths(
+          _lastPoints[1],
+          _lastPoints[2]
+        );
         const curve = Bezier.fromPoints(_lastPoints, widths);
         _lastPoints.shift();
         return curve;
@@ -484,14 +485,14 @@
     }
 
     _calculateCurveWidths(startPoint, endPoint) {
-      if (typeof endPoint == "undefined") {
-        const newWidth = this._strokeWidth(startPoint); // pressure;
+      if (this.usePressure) {
+        const newWidth = this._strokeWidthByPressure(endPoint.pressure); // pressure;
         const widths = {
           end: newWidth,
           start: this._lastWidth,
         };
         this._lastWidth = newWidth;
-        console.log("pressure", startPoint, "newWidth", newWidth);
+        console.log("pressure", endPoint.pressure, "newWidth", newWidth);
         return widths;
       } else {
         const velocity =
