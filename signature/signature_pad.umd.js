@@ -312,7 +312,7 @@
       this.canvas.style.userSelect = "none";
       const isIOS =
         /Macintosh/.test(navigator.userAgent) && "ontouchstart" in document;
-      if (window.PointerEvent && !isIOS) {
+      if (window.PointerEvent) {
         this._handlePointerEvents();
       } else {
         this._handleMouseEvents();
