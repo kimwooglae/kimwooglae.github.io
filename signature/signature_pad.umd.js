@@ -310,8 +310,6 @@
       this.canvas.style.touchAction = "none";
       this.canvas.style.msTouchAction = "none";
       this.canvas.style.userSelect = "none";
-      const isIOS =
-        /Macintosh/.test(navigator.userAgent) && "ontouchstart" in document;
       if (window.PointerEvent) {
         console.log("Using Pointer Events");
         this._handlePointerEvents();
@@ -361,6 +359,14 @@
     toData() {
       return this._data;
     }
+    toFixed(val, point) {
+      point = point || 2;
+      if (val === undefined) {
+        return "";
+      } else {
+        return parseFloat(val.toFixed(point));
+      }
+    }
     _strokeBegin(event) {
       this.dispatchEvent(new CustomEvent("beginStroke", { detail: event }));
       const newPointGroup = {
@@ -388,19 +394,19 @@
         "event.clientY",
         event.clientY,
         "event.pressure",
-        event.pressure,
+        toFixed(event.pressure),
         "event.tiltX",
-        event.tiltX,
+        toFixed(event.tiltX),
         "event.tiltY",
-        event.tiltY,
+        toFixed(event.tiltY),
         "event.pointerType",
         event.pointerType,
         "event.pointerId",
         event.pointerId,
         "event.width",
-        event.width,
+        toFixed(event.width, 0),
         "event.height",
-        event.height
+        toFixed(event.height, 0)
       );
       const x = event.clientX;
       const y = event.clientY;
