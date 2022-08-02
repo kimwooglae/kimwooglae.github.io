@@ -379,6 +379,26 @@
       this.dispatchEvent(
         new CustomEvent("beforeUpdateStroke", { detail: event })
       );
+      console.log(
+        "event.clientX",
+        event.clientX,
+        "event.clientY",
+        event.clientY,
+        "event.pressure",
+        event.pressure,
+        "event.tiltX",
+        event.tiltX,
+        "event.tiltY",
+        event.tiltY,
+        "event.pointerType",
+        event.pointerType,
+        "event.pointerId",
+        event.pointerId,
+        "event.width",
+        event.width,
+        "event.height",
+        event.height
+      );
       const x = event.clientX;
       const y = event.clientY;
       const pressure = event.pressure !== undefined ? event.pressure : 0.5;
