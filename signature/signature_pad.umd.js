@@ -313,11 +313,14 @@
       const isIOS =
         /Macintosh/.test(navigator.userAgent) && "ontouchstart" in document;
       if (window.PointerEvent) {
+        console.log("Using Pointer Events");
         this._handlePointerEvents();
       } else {
         this._handleMouseEvents();
+        console.log("Using Mouse Events");
         if ("ontouchstart" in window) {
           this._handleTouchEvents();
+          console.log("Using Touch Events");
         }
       }
     }
