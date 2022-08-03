@@ -389,24 +389,24 @@
         new CustomEvent("beforeUpdateStroke", { detail: event })
       );
       console.log(
-        "event.clientX",
-        event.clientX,
-        "event.clientY",
-        event.clientY,
-        "event.pressure",
-        toFixed(event.pressure),
-        "event.tiltX",
-        toFixed(event.tiltX),
-        "event.tiltY",
-        toFixed(event.tiltY),
-        "event.pointerType",
+        "clientX",
+        this.toFixed(event.clientX),
+        "clientY",
+        this.toFixed(event.clientY),
+        "pressure",
+        this.toFixed(event.pressure),
+        "tiltX",
+        this.toFixed(event.tiltX),
+        "tiltY",
+        this.toFixed(event.tiltY),
+        "pointerType",
         event.pointerType,
-        "event.pointerId",
+        "pointerId",
         event.pointerId,
-        "event.width",
-        toFixed(event.width, 0),
-        "event.height",
-        toFixed(event.height, 0)
+        "width",
+        this.toFixed(event.width, 0),
+        "height",
+        this.toFixed(event.height, 0)
       );
       const x = event.clientX;
       const y = event.clientY;
